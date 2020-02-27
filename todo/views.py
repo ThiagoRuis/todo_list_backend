@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Todo
 from .serializers import TodoSerializer
-from datetime import date
+from datetime import datetime
 
 
 class TodoViewSet(viewsets.ModelViewSet):
@@ -13,6 +13,6 @@ class TodoViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'])
     def done(self, request, pk=None):
         todo = self.get_object()
-        todo.completed_at = date.today()
+        todo.completed_at = datetime.now()
         todo.save()
         return Response(self.get_serializer(todo).data)
